@@ -384,7 +384,7 @@ int main(int argc, char * argv[]) {
               if(zbuffer[WIDTH*(xs + i)+(ys + j)] > depth - lighting) { /* Check whether point is visible */
                 zbuffer[WIDTH*(xs + i)+(ys + j)] = depth - lighting;
                 # ifndef NO_FADING
-                lighting *= (1.0f - fade*(depth - 1.0f)/(0.4f*backdrop - 1.0f)); /* Modify colour by depth */
+                lighting *= (1.0f - fade*(depth - 1.0f)/(0.5f*backdrop - 1.0f)); /* Modify colour by depth */
                 # endif
                 if(lighting < 0.0f) lighting = 0.0f;
                 XPutPixel(I, xs + i, ys + j, (int) (c.r*lighting)*65536 + (int) (c.g*lighting)*256 + (int) (c.b*lighting)); /* Draw point */
