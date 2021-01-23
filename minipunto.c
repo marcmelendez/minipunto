@@ -189,7 +189,7 @@ void setcamera(struct camera * cam, float location[3], float aim[3], float zenit
 
 /***** Main function *****/
 int main(int argc, char * argv[]) {
-  int i, j; /* Indices */
+  int i, j, k; /* Indices */
   FILE * mddata = NULL; /* Pointer to data file */
   FILE * videopipe = NULL; /* Pointer to named pipe for video output */
 
@@ -327,6 +327,7 @@ int main(int argc, char * argv[]) {
   float depth = 0; /* Depth of point from camera */
   int xs, ys, s; /* Screen coordinates of particle */
   float zbuffer[WIDTH*HEIGHT]; /* Pixel depth z-buffer */
+  float backdrop = 2.5f*L; /* Maximum allowed depth */
 
   /* Set the camera position and orientation */
   setcamera(&cam, loc, aim, zen);
@@ -373,17 +374,17 @@ int main(int argc, char * argv[]) {
 
             /* Light angle factor */
             # ifdef FAST_MATH
-            float lighting = 1 - (i*i + j*j)/(2.0f*s*s);
+            float lighting = s?1.0f - (i*i + j*j)/(2.0f*s*s):1.0f;
             # else
-            float lighting = sqrtf(1 - (float) (i*i + j*j)/(s*s));
+            float lighting = s?sqrtf(1.0f - (float) (i*i + j*j)/(s*s)):1.0f;
             # endif
             if(lighting > 1) lighting = 1.0f;
 
             if(abs(xs + i - WIDTH/2) < WIDTH/2 && abs(ys + j - HEIGHT/2) < HEIGHT/2) {
               if(zbuffer[WIDTH*(xs + i)+(ys + j)] > depth - lighting) { /* Check whether point is visible */
-                zbuffer[WIDTH*(xs + i)+(ys + j)] = depth - lighting; /* Set z-buffer value */
+                zbuffer[WIDTH*(xs + i)+(ys + j)] = depth - lighting;
                 # ifndef NO_FADING
-                lighting *= (1.0f - fade*(depth - 1.0f)/(2.0f*L - 1.0f)); /* Modify colour by depth */
+                lighting *= (1.0f - fade*(depth - 1.0f)/(0.4f*backdrop - 1.0f)); /* Modify colour by depth */
                 # endif
                 if(lighting < 0.0f) lighting = 0.0f;
                 XPutPixel(I, xs + i, ys + j, (int) (c.r*lighting)*65536 + (int) (c.g*lighting)*256 + (int) (c.b*lighting)); /* Draw point */
@@ -459,7 +460,11 @@ int main(int argc, char * argv[]) {
         for(j = 0; j < HEIGHT; j++) {
           BACKGROUND_HORIZON
           XPutPixel(I, i, j, background);
-          zbuffer[WIDTH*i + j] = 2.5f*L;
+          backdrop = 0;
+          for(k = 0; k < 3; k++)
+            backdrop += (cam.aim[k] - cam.location[k])*(cam.aim[k] - cam.location[k]);
+          backdrop = sqrtf(backdrop);
+          zbuffer[WIDTH*i + j] = 2.5f*backdrop;
         }
       }
     }
