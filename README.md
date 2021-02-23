@@ -15,14 +15,14 @@ End files with (newline) #.
 
 ## Command-line options
 
-| Option           |     Parameter               |
-|------------------|-----------------------------|
-| -b <RGB integer> | Background colour.          |
-| -t <RGB integer> | Text colour.                |
-| -L <x value>     | Initial camera distance.    |
-| -l <x> <y> <z>   | Initial location of camera. |
-| -a <x> <y> <z>   | Camera aim.                 |
-| -z <x> <y> <z>   | Camera zenith vector.       |
+| Option                             |     Parameter               |
+|------------------------------------|-----------------------------|
+| -b &lt;RGB integer&gt;             | Background colour.          |
+| -t &lt;RGB integer&gt;             | Text colour.                |
+| -L &lt;x value&gt;                 | Initial camera distance.    |
+| -l &lt;x&gt; &lt;y&gt; &lt;z&gt;   | Initial location of camera. |
+| -a &lt;x&gt; &lt;y&gt; &lt;z&gt;   | Camera aim.                 |
+| -z &lt;x&gt; &lt;y&gt; &lt;z&gt;   | Camera zenith vector.       |
 
 You can pipe data into minipunto, but it will not loop when it
 reaches the end of the output.
