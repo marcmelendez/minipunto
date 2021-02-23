@@ -15,12 +15,14 @@ End files with (newline) #.
 
 ## Command-line options
 
-  -b <RGB integer> Background colour.
-  -t <RGB integer> Text colour.
-  -L <x value>     Initial camera distance.
-  -l <x> <y> <z>   Initial location of camera.
-  -a <x> <y> <z>   Camera aim.
-  -z <x> <y> <z>   Camera zenith vector.
+| Option           |     Parameter               |
+|------------------|-----------------------------|
+| -b <RGB integer> | Background colour.          |
+| -t <RGB integer> | Text colour.                |
+| -L <x value>     | Initial camera distance.    |
+| -l <x> <y> <z>   | Initial location of camera. |
+| -a <x> <y> <z>   | Camera aim.                 |
+| -z <x> <y> <z>   | Camera zenith vector.       |
 
 You can pipe data into minipunto, but it will not loop when it
 reaches the end of the output.
@@ -53,8 +55,8 @@ an image viewer like eog, or programs like gimp. You can also
 convert it into some other format with the command
 ``convert -i 0.ppm screenshot.png``.
 
-To record video, minipunto uses avconv, but you can change the
-reference to avconv in the code to ffmpeg instead and it should
-still work fine. Another option is to compile with a
-``-DRAW_VIDEO_TO_FILE`` flag, which will save the video as a
-``.raw`` file.
+To record video, minipunto uses ``avconv``, but you can change
+the reference to ``avconv`` in the code to ``ffmpeg`` instead
+and it should still work fine. Another option is to compile
+with a ``-DRAW_VIDEO_TO_FILE`` flag, which will save the video
+as a ``.raw`` file.
