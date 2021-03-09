@@ -3,7 +3,7 @@
  A small and simple molecular dynamics visualisation tool for X, with
  exclusively standard dependencies.
 
-  [example/NaCl.png]
+![NaCl crystal](example/NaCl.png)
 
 ## Molecular dynamics file format
 
