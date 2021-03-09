@@ -3,6 +3,8 @@
  A small and simple molecular dynamics visualisation tool for X, with
  exclusively standard dependencies.
 
+  [example/NaCl.png]
+
 ## Molecular dynamics file format
 
 The files should contain at least three columns
